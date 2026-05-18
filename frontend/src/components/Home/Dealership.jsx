@@ -7,15 +7,25 @@ export default function NightVisionDealerships() {
   const [hoveredCard, setHoveredCard] = useState(null);
 
   const dealers = [
-    { id: 1, name: 'R MOBILE SECURITY', location: 'New Road, Kathmandu, Nepal', phone: '+977 01-4XXXXXX', status: 'AUTHORIZED', isPlatinum: true },
-    { id: 2, name: 'AXE TECH SOLUTIONS', location: 'Lakeside, Pokhara, Nepal', phone: '+977 61-5XXXXXX', status: 'PLATINUM PARTNER', isPlatinum: true },
-    { id: 3, name: 'VISIONARY SURVEILLANCE', location: 'Traffic Chowk, Butwal, Nepal', phone: '+977 71-5XXXXXX', status: 'AUTHORIZED', isPlatinum: false },
-    { id: 4, name: 'NEPAL DEFENSE TECH', location: 'Main Road, Biratnagar, Nepal', phone: '+977 21-4XXXXXX', status: 'AUTHORIZED' },
-    { id: 5, name: 'CYBEREYE SYSTEMS', location: 'Jhamsikhel, Lalitpur, Nepal', phone: '+977 01-5XXXXXX', status: 'AUTHORIZED' },
-    { id: 6, name: 'HIMALAYAN WATCHMEN', location: 'Birendranagar, Surkhet, Nepal', phone: '+977 83-5XXXXXX', status: 'AUTHORIZED' }
+    { id: 1, name: 'R MOBILE SECURITY', location: 'New Road, Kathmandu, Bagmati Province, Nepal', phone: '+977 01-4XXXXXX', status: 'AUTHORIZED', isPlatinum: true },
+    { id: 2, name: 'AXE TECH SOLUTIONS', location: 'Lakeside, Pokhara, Gandaki Province, Nepal', phone: '+977 61-5XXXXXX', status: 'PLATINUM PARTNER', isPlatinum: true },
+    { id: 3, name: 'VISIONARY SURVEILLANCE', location: 'Traffic Chowk, Butwal, Lumbini Province, Nepal', phone: '+977 71-5XXXXXX', status: 'AUTHORIZED', isPlatinum: false },
+    { id: 4, name: 'NEPAL DEFENSE TECH', location: 'Main Road, Biratnagar, Koshi Province, Nepal', phone: '+977 21-4XXXXXX', status: 'AUTHORIZED' },
+    { id: 5, name: 'CYBEREYE SYSTEMS', location: 'Jhamsikhel, Lalitpur, Bagmati Province, Nepal', phone: '+977 01-5XXXXXX', status: 'AUTHORIZED' },
+    { id: 6, name: 'HIMALAYAN WATCHMEN', location: 'Birendranagar, Surkhet, Karnali Province, Nepal', phone: '+977 83-5XXXXXX', status: 'AUTHORIZED' }
   ];
 
-  const filteredDealers = dealers.filter(dealer => dealer.name.toLowerCase().includes(searchTerm.toLowerCase()));
+ const filteredDealers = dealers.filter((dealer) => {
+  const matchesSearch = dealer.name
+    .toLowerCase()
+    .includes(searchTerm.toLowerCase());
+
+  const matchesRegion =
+    selectedRegion === 'ALL REGIONS' ||
+    dealer.location.includes(selectedRegion);
+
+  return matchesSearch && matchesRegion;
+});
 
   const keyframes = `
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
@@ -130,10 +140,13 @@ export default function NightVisionDealerships() {
                 onBlur={(e) => e.target.style.borderColor = '#444'}
               >
                 <option>ALL REGIONS</option>
-                <option>KATHMANDU</option>
-                <option>POKHARA</option>
-                <option>BUTWAL</option>
-                <option>BIRATNAGAR</option>
+                <option>Koshi Province</option>
+                <option>Madhesh Province</option>
+                <option>Bagmati Province</option>
+                <option>Gandaki Province</option>
+                <option>Lumbini Province</option>
+                <option>Karnali Province</option>
+                <option>Sudurpashchim Province</option>
               </select>
               <ChevronDown style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: '#555', width: '16px', height: '16px' }} />
             </div>

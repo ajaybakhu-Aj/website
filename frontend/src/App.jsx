@@ -21,6 +21,7 @@ import Cart from "./components/Home/Cart";
 import Founder from "./components/Home/FounderPage";
 import Dealership from "./components/Home/Dealership";
 import SupportPage from "./components/Home/SupportPage";
+import ApplyDealersPage from "./components/Home/ApplyDealersPage";
 
 import "./styles/global.css";
 
@@ -81,6 +82,7 @@ function App() {
         element={<Product />}
       />
         <Route path="/support" element={<SupportPage />} />
+        <Route path="/apply-dealers" element={<ApplyDealersPage />} />
 
 
       
