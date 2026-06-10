@@ -204,8 +204,8 @@ function HeroSection() {
                             fontSize: isSmallMobile
                                 ? "34px"
                                 : isMobile
-                                ? "44px"
-                                : "clamp(52px, 6vw, 78px)",
+                                    ? "44px"
+                                    : "clamp(52px, 6vw, 78px)",
                             lineHeight: 1,
                             fontWeight: 700,
                             letterSpacing: isMobile ? -1 : -3,
@@ -321,10 +321,10 @@ function HeroSection() {
                             height: isSmallMobile
                                 ? "360px"
                                 : isMobile
-                                ? "440px"
-                                : isTablet
-                                ? "560px"
-                                : "680px",
+                                    ? "440px"
+                                    : isTablet
+                                        ? "560px"
+                                        : "680px",
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "flex-end",
@@ -333,54 +333,54 @@ function HeroSection() {
                     >
                         {/* GREEN HALO GLOW */}
                         <div
-    style={{
-        position: "absolute",
-        bottom: isMobile ? "40px" : "80px",
-        left: "50%",
-        transform: "translateX(-50%)",
+                            style={{
+                                position: "absolute",
+                                bottom: isMobile ? "40px" : "80px",
+                                left: "50%",
+                                transform: "translateX(-50%)",
 
-        width: isMobile ? "280px" : "600px",
-        height: isMobile ? "280px" : "600px",
+                                width: isMobile ? "280px" : "600px",
+                                height: isMobile ? "280px" : "600px",
 
-        borderRadius: "50%",
+                                borderRadius: "50%",
 
-        background:
-            "radial-gradient(circle, rgba(148,218,50,0.25) 0%, rgba(148,218,50,0.08) 35%, rgba(148,218,50,0) 75%)",
+                                background:
+                                    "radial-gradient(circle, rgba(148,218,50,0.50) 0%, rgba(148,218,50,0.16) 35%, rgba(148,218,50,0) 75%)",
 
-        filter: "blur(60px)",
-        zIndex: 1,
-    }}
-/>
+                                filter: "blur(60px)",
+                                zIndex: 1,
+                            }}
+                        />
 
                         {/* BRAND AMBASSADOR IMAGE */}
-                       <img
-    src="/hero_pointing_cctv.png"
-    style={{
-        position: "relative",
-        zIndex: 2,
+                        <img
+                            src="/hero_pointing_cctv.png"
+                            style={{
+                                position: "relative",
+                                zIndex: 2,
 
-        maxHeight: isSmallMobile
-            ? "320px"
-            : isMobile
-            ? "420px"
-            : isTablet
-            ? "550px"
-            : "760px",
+                                maxHeight: isSmallMobile
+                                    ? "320px"
+                                    : isMobile
+                                        ? "420px"
+                                        : isTablet
+                                            ? "550px"
+                                            : "760px",
 
-        width: "auto",
-        maxWidth: "100%",
+                                width: "auto",
+                                maxWidth: "100%",
 
-        objectFit: "contain",
-        objectPosition: "bottom center",
+                                objectFit: "contain",
+                                objectPosition: "bottom center",
 
-        filter: `
-            drop-shadow(0 15px 40px rgba(0,0,0,0.45))
-            drop-shadow(0 0 30px rgba(148,218,50,0.15))
-        `,
+                                filter: `
+                                    drop-shadow(0 15px 40px rgba(0,0,0,0.45))
+                                    drop-shadow(0 0 30px rgba(148,218,50,0.30))
+                                `,
 
-        transform: isMobile ? "translateY(10px)" : "translateY(20px)",
-    }}
-/>
+                                transform: isMobile ? "translateY(10px)" : "translateY(20px)",
+                            }}
+                        />
 
                         {/* TRUSTED LEADERSHIP CARD */}
                         <div
@@ -400,9 +400,9 @@ function HeroSection() {
                                 borderLeft: `3px solid ${colors.secondary}`,
                             }}
                         >
-                        
-                            
-                            
+
+
+
                         </div>
                     </div>
                 </div>
