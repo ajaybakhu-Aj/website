@@ -11,7 +11,10 @@
     "test": "..."
   },
   "dependencies": {
+    "@splidejs/react-splide": "^0.7.12",
+    "@splidejs/splide": "^4.1.4",
     "@tailwindcss/vite": "^4.3.0",
+    "framer-motion": "^12.40.0",
     "lucide-react": "^1.16.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",

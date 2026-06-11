@@ -28,7 +28,10 @@ import {
   deleteAdmin,
   verifyAdminCredentials,
   getSiteContents,
-  saveSiteContents
+  saveSiteContents,
+  getAllTeamMembers,
+  saveTeamMember,
+  deleteTeamMember
 } from "../../../utils/cmsDb";
 import Icon from "../../../utils/Icon";
 
@@ -57,6 +60,7 @@ export default function AdminDashboard() {
   const [events, setEvents] = useState([]);
   const [gallery, setGallery] = useState([]);
   const [adminUsers, setAdminUsers] = useState([]);
+  const [teamMembers, setTeamMembers] = useState([]);
 
   // Expanded states
   const [orders, setOrders] = useState([]);
@@ -254,6 +258,7 @@ export default function AdminDashboard() {
     getAllContacts().then(setContacts);
     getAllActivities().then(setSysLogs);
     getAllAdmins().then(setAdminUsers);
+    getAllTeamMembers().then(setTeamMembers);
     getSiteContents().then(setSiteContents);
     getSettings().then((config) => {
       setSettings(config);
@@ -310,6 +315,8 @@ export default function AdminDashboard() {
           return;
         }
         deleteAdmin(id).then(() => { loadAllData(); addLog(`Deleted administrator account ID #${id}`); });
+      } else if (type === "team_member") {
+        deleteTeamMember(id).then(() => { loadAllData(); addLog(`Deleted team member ID #${id}`); });
       } else if (type === "order") {
         const savedOrders = JSON.parse(localStorage.getItem("orders") || "[]");
         const filtered = savedOrders.filter(x => x.id !== id);
@@ -445,6 +452,14 @@ export default function AdminDashboard() {
           password: "",
           role: "Admin"
         });
+      } else if (type === "team_member") {
+        setFormData({
+          name: "",
+          role: "",
+          bio: "",
+          image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80",
+          socials: { linkedin: "", twitter: "", facebook: "", instagram: "" }
+        });
       } else if (type === "dealer") {
         setFormData({
           companyName: "",
@@ -524,6 +539,12 @@ export default function AdminDashboard() {
         loadAllData();
         setFormType(null);
         addLog(`Administrator account for ${dataToSave.name} (${dataToSave.email}) saved successfully.`);
+      });
+    } else if (formType === "team_member") {
+      saveTeamMember(dataToSave).then(() => {
+        loadAllData();
+        setFormType(null);
+        addLog(`Team member ${dataToSave.name} saved successfully.`);
       });
     } else if (formType === "dealer") {
       if (!editItem && !dataToSave.date) {
@@ -804,6 +825,7 @@ export default function AdminDashboard() {
               { id: "customize", name: "Edit Site Contents", icon: "edit_note" },
               { id: "settings", name: "System Settings", icon: "settings" },
               { id: "admins", name: "User Accounts", icon: "manage_accounts" },
+              { id: "team", name: "Team Members", icon: "groups" },
               { id: "activities", name: "Activity Logs", icon: "list_alt" }
             ].map((tab) => (
               <button
@@ -3525,7 +3547,81 @@ export default function AdminDashboard() {
                 )}
               </div>
             )}
-            {/* TAB CONTENT: ADMIN ACCOUNTS MANAGER */}
+            {/* TEAM MEMBERS TAB */}
+            {activeTab === "team" && !formType && (
+              <div className="admin-fade-in">
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24, paddingBottom: 16, borderBottom: `1px solid ${C.outlineVar}` }}>
+                  <h2 style={{ fontFamily: C.sg, fontSize: 20, fontWeight: 700 }}>TEAM MEMBERS ({teamMembers.length})</h2>
+                  <button onClick={() => openForm("team_member")} style={{ display: "flex", alignItems: "center", gap: 8, background: C.primary, color: C.onPrimary, border: "none", padding: "10px 16px", borderRadius: "6px", fontSize: 11, fontWeight: 700, cursor: "pointer" }}>
+                    <Icon name="add" size={16} /> ADD TEAM MEMBER
+                  </button>
+                </div>
+                {teamMembers.length === 0 ? (
+                  <p style={{ color: C.onSurfVar, fontSize: 13, background: C.surfCont, padding: 24, borderRadius: "8px", border: `1px dashed ${C.outline}` }}>No team members found. Click "Add Team Member" to create one.</p>
+                ) : (
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20 }}>
+                    {teamMembers.map((member) => (
+                      <div key={member.id} style={{ background: C.surface, border: `1px solid ${C.outlineVar}`, borderRadius: "8px", overflow: "hidden", position: "relative" }}>
+                        <div style={{ height: 160, backgroundImage: `url(${member.image})`, backgroundSize: "cover", backgroundPosition: "center" }}></div>
+                        <div style={{ padding: 20 }}>
+                          <h3 style={{ margin: "0 0 4px 0", fontSize: 16, fontFamily: C.sg }}>{member.name}</h3>
+                          <p style={{ margin: "0 0 12px 0", fontSize: 12, color: C.primary, fontWeight: 700 }}>{member.role}</p>
+                          <div style={{ display: "flex", gap: 8, borderTop: `1px solid ${C.outlineVar}`, paddingTop: 16, marginTop: 16 }}>
+                            <button onClick={() => openForm("team_member", member)} style={{ flex: 1, padding: "8px", background: C.surfCont, border: `1px solid ${C.outlineVar}`, borderRadius: "4px", fontSize: 11, fontWeight: 600, cursor: "pointer" }}>EDIT</button>
+                            <button onClick={() => handleDelete("team_member", member.id)} style={{ flex: 1, padding: "8px", background: "rgba(239,68,68,0.1)", color: "#ef4444", border: "1px solid rgba(239,68,68,0.2)", borderRadius: "4px", fontSize: 11, fontWeight: 600, cursor: "pointer" }}>DELETE</button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {formType === "team_member" && (
+              <div className="admin-fade-in admin-form-panel">
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24, borderBottom: `1px solid ${C.outlineVar}`, paddingBottom: 16 }}>
+                  <h2 style={{ fontFamily: C.sg, fontSize: 20, fontWeight: 700 }}>{editItem ? "EDIT TEAM MEMBER" : "ADD NEW TEAM MEMBER"}</h2>
+                  <button type="button" onClick={() => setFormType(null)} style={{ background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 6, fontSize: 11, fontWeight: 700, color: C.onSurfVar }}>
+                    <Icon name="close" size={16} /> CANCEL
+                  </button>
+                </div>
+                <form onSubmit={handleFormSubmit} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+                    <div>
+                      <label style={{ display: "block", fontSize: 10, fontWeight: 700, marginBottom: 8 }}>MEMBER NAME</label>
+                      <input required type="text" value={formData.name || ""} onChange={(e) => setFormData({ ...formData, name: e.target.value })} style={{ width: "100%", padding: 12, border: `1px solid ${C.outlineVar}`, borderRadius: "6px" }} />
+                    </div>
+                    <div>
+                      <label style={{ display: "block", fontSize: 10, fontWeight: 700, marginBottom: 8 }}>ROLE / TITLE</label>
+                      <input required type="text" value={formData.role || ""} onChange={(e) => setFormData({ ...formData, role: e.target.value })} style={{ width: "100%", padding: 12, border: `1px solid ${C.outlineVar}`, borderRadius: "6px" }} />
+                    </div>
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: 10, fontWeight: 700, marginBottom: 8 }}>IMAGE URL</label>
+                    <input required type="text" value={formData.image || ""} onChange={(e) => setFormData({ ...formData, image: e.target.value })} style={{ width: "100%", padding: 12, border: `1px solid ${C.outlineVar}`, borderRadius: "6px" }} />
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: 10, fontWeight: 700, marginBottom: 8 }}>BIO</label>
+                    <textarea required rows="4" value={formData.bio || ""} onChange={(e) => setFormData({ ...formData, bio: e.target.value })} style={{ width: "100%", padding: 12, border: `1px solid ${C.outlineVar}`, borderRadius: "6px" }}></textarea>
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: 10, fontWeight: 700, marginBottom: 8 }}>SOCIAL LINKS</label>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                      <input type="text" placeholder="LinkedIn URL" value={formData.socials?.linkedin || ""} onChange={(e) => setFormData({ ...formData, socials: { ...formData.socials, linkedin: e.target.value } })} style={{ width: "100%", padding: 10, border: `1px solid ${C.outlineVar}`, borderRadius: "6px" }} />
+                      <input type="text" placeholder="Twitter URL" value={formData.socials?.twitter || ""} onChange={(e) => setFormData({ ...formData, socials: { ...formData.socials, twitter: e.target.value } })} style={{ width: "100%", padding: 10, border: `1px solid ${C.outlineVar}`, borderRadius: "6px" }} />
+                      <input type="text" placeholder="Facebook URL" value={formData.socials?.facebook || ""} onChange={(e) => setFormData({ ...formData, socials: { ...formData.socials, facebook: e.target.value } })} style={{ width: "100%", padding: 10, border: `1px solid ${C.outlineVar}`, borderRadius: "6px" }} />
+                      <input type="text" placeholder="Instagram URL" value={formData.socials?.instagram || ""} onChange={(e) => setFormData({ ...formData, socials: { ...formData.socials, instagram: e.target.value } })} style={{ width: "100%", padding: 10, border: `1px solid ${C.outlineVar}`, borderRadius: "6px" }} />
+                    </div>
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "flex-end", gap: 12, marginTop: 16 }}>
+                    <button type="submit" style={{ background: C.primary, color: C.onPrimary, border: "none", padding: "12px 24px", borderRadius: "6px", fontWeight: 700, cursor: "pointer" }}>SAVE MEMBER</button>
+                  </div>
+                </form>
+              </div>
+            )}
+
+            {/* ADMINS TAB */}
             {activeTab === "admins" && !formType && (
               <div>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24, borderBottom: `1px solid ${C.outlineVar}`, paddingBottom: 16 }}>

@@ -55,6 +55,7 @@ import EventsPage from "./app/(marketing)/events/page";
 import EventDetail from "./app/(marketing)/events/EventDetail";
 import AppDownloadsPage from "./app/(marketing)/support/downloads/page";
 import GalleryPage from "./app/(marketing)/gallery/page";
+import TeamPage from "./app/(marketing)/company/team/page";
 
 import PageNotFound from "./app/PageNotFound";
 import Icon from "./utils/Icon";
@@ -332,6 +333,8 @@ function App() {
       pageKey = "blog";
     } else if (path.startsWith("/gallery")) {
       pageKey = "gallery";
+    } else if (path.startsWith("/team")) {
+      pageKey = "team";
     } else if (path.startsWith("/events")) {
       pageKey = "events";
     } else if (path.startsWith("/checkout")) {
@@ -367,7 +370,8 @@ function App() {
       terms: "Terms of Service - NightVision",
       privacy: "Privacy Protocol Policy - NightVision",
       blog: "Security Intelligence Blog - NightVision",
-      gallery: "Perimeter Installation Gallery - NightVision"
+      gallery: "Perimeter Installation Gallery - NightVision",
+      team: "Meet Our Team - NightVision"
     };
 
     const defaultDescs = {
@@ -384,6 +388,7 @@ function App() {
       privacy: "Learn how we protect data captured by NightVision surveillance systems. Secure encryption and privacy standards.",
       blog: "Read latest updates, security tutorials, threat reports, and CCTV guides from NightVision experts.",
       gallery: "Browse active drone feeds, operations matrix centers, and night vision installation mockups across Nepal.",
+      team: "The visionaries and engineers behind NightVision's uncompromising security ecosystem.",
       events: "Explore the latest news coverage, event details, and product announcements from NightVision.",
       checkout: "Finalize your order of enterprise-grade security cameras, NVR networks, and storage packages.",
       login: "Access your operator terminal dashboard to manage security devices and order history.",
@@ -435,6 +440,9 @@ function App() {
 
         {/* CART PAGE */}
         <Route path="/cart" element={<Cart />} />
+
+        {/* TEAM PAGE */}
+        <Route path="/team" element={<TeamPage />} />
 
         {/* FOUNDER PAGE */}
         <Route path="/founder" element={<Founder />} />

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Icon from "../../../../utils/Icon";
 import { useSiteContents } from "../../../../utils/cmsDb";
 import PageHeroBanner from "../../../../components/ui/PageHeroBanner";
+import TeamSection from "../../../../components/company/TeamSection";
 
 export default function NightVisionAboutPage() {
   const contents = useSiteContents();
@@ -323,6 +324,9 @@ export default function NightVisionAboutPage() {
             </div>
 
           </section>
+
+          {/* TEAM SECTION */}
+          <TeamSection />
 
           {/* CTA */}
 

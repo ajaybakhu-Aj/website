@@ -6,7 +6,7 @@ import { articles as SEED_BLOGS } from "../data/blogData";
 import { newsEventsData as SEED_EVENTS } from "../data/newsEvents";
 
 const DB_NAME = "NightVisionCMSDB";
-const DB_VERSION = 4;
+const DB_VERSION = 5;
 const STORES = {
   BLOGS: "blogs",
   EVENTS: "events",
@@ -15,7 +15,8 @@ const STORES = {
   CONTACTS: "contacts",
   SETTINGS: "settings",
   ACTIVITIES: "activities",
-  ADMIN_USERS: "admin_users"
+  ADMIN_USERS: "admin_users",
+  TEAM_MEMBERS: "team_members"
 };
 
 const SEED_DEALERS = [
@@ -443,6 +444,129 @@ const SEED_GALLERY = [
   }
 ];
 
+const SEED_TEAM_MEMBERS = [
+  {
+    id: 1,
+    name: 'Rozil Thapa',
+    role: 'Founder & CEO',
+    bio: 'Visionary leader dedicated to creating advanced surveillance solutions and pushing the boundaries of security tech in Nepal.',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80',
+    socials: { linkedin: '#', twitter: '#', facebook: '#', instagram: '#' }
+  },
+  {
+    id: 2,
+    name: 'Aisha Sharma',
+    role: 'Chief Technology Officer',
+    bio: 'Pioneering our AI-powered motion analysis and cloud integration to keep you safe.',
+    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=80',
+    socials: { linkedin: '#', twitter: '#', facebook: '#', instagram: '#' }
+  },
+  {
+    id: 3,
+    name: 'Rajeev Shrestha',
+    role: 'Head of Operations',
+    bio: 'Ensuring seamless deployment and operational durability across our nationwide network.',
+    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=80',
+    socials: { linkedin: '#', twitter: '#', facebook: '#', instagram: '#' }
+  },
+  {
+    id: 4,
+    name: 'Sneha Gurung',
+    role: 'Lead Developer',
+    bio: 'Architecting the software that drives our intelligent systems from the ground up.',
+    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80',
+    socials: { linkedin: '#', twitter: '#', facebook: '#', instagram: '#' }
+  },
+  {
+    id: 5,
+    name: 'Bikash Tamang',
+    role: 'Security Analyst',
+    bio: 'Analyzing threat patterns to build predictive security models that stop crimes before they happen.',
+    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&auto=format&fit=crop&q=80',
+    socials: { linkedin: '#', twitter: '#', facebook: '#', instagram: '#' }
+  },
+  {
+    id: 6,
+    name: 'Anjali Chaudhary',
+    role: 'AI Research Engineer',
+    bio: 'Developing computer vision algorithms and deep learning models for intelligent video analytics.',
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=80',
+    socials: { linkedin: '#', twitter: '#', facebook: '#', instagram: '#' }
+  },
+  {
+    id: 7,
+    name: 'Sunil Basnet',
+    role: 'Hardware Engineering Lead',
+    bio: 'Designing high-durability thermal sensors and low-light optical components for our device fleet.',
+    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&auto=format&fit=crop&q=80',
+    socials: { linkedin: '#', twitter: '#', facebook: '#', instagram: '#' }
+  },
+  {
+    id: 8,
+    name: 'Priya Adhikari',
+    role: 'UX/UI Designer',
+    bio: 'Crafting intuitive dashboard experiences and seamless mobile interfaces for our security app.',
+    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&auto=format&fit=crop&q=80',
+    socials: { linkedin: '#', twitter: '#', facebook: '#', instagram: '#' }
+  },
+  {
+    id: 9,
+    name: 'Niranjan Mahato',
+    role: 'Cloud Infrastructure Specialist',
+    bio: 'Architecting high-availability cloud storage systems and secure video streaming pipelines.',
+    image: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=800&auto=format&fit=crop&q=80',
+    socials: { linkedin: '#', twitter: '#', facebook: '#', instagram: '#' }
+  },
+  {
+    id: 10,
+    name: 'Sabina Karki',
+    role: 'Customer Success Director',
+    bio: 'Leading our 24/7 technical support and client onboarding operations across major enterprise deployments.',
+    image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&auto=format&fit=crop&q=80',
+    socials: { linkedin: '#', twitter: '#', facebook: '#', instagram: '#' }
+  },
+  {
+    id: 11,
+    name: 'Ramesh Bhatta',
+    role: 'Cybersecurity Consultant',
+    bio: 'Conducting network penetration testing and securing firmware integrations against potential vulnerabilities.',
+    image: 'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=800&auto=format&fit=crop&q=80',
+    socials: { linkedin: '#', twitter: '#', facebook: '#', instagram: '#' }
+  },
+  {
+    id: 12,
+    name: 'Deepa Shrestha',
+    role: 'Product Manager',
+    bio: 'Bridging the gap between engineering teams and enterprise client requirements to define our product roadmap.',
+    image: 'https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?w=800&auto=format&fit=crop&q=80',
+    socials: { linkedin: '#', twitter: '#', facebook: '#', instagram: '#' }
+  },
+  {
+    id: 13,
+    name: 'Pradeep Khadka',
+    role: 'QA Lead Engineer',
+    bio: 'Implementing automated testing frameworks and verifying the stability of software updates.',
+    image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&auto=format&fit=crop&q=80',
+    socials: { linkedin: '#', twitter: '#', facebook: '#', instagram: '#' }
+  },
+  {
+    id: 14,
+    name: 'Kabita Rai',
+    role: 'Marketing Manager',
+    bio: 'Spreading our mission of uncompromising security and managing public relations and events.',
+    image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&auto=format&fit=crop&q=80',
+    socials: { linkedin: '#', twitter: '#', facebook: '#', instagram: '#' }
+  },
+  {
+    id: 15,
+    name: 'Manish Giri',
+    role: 'Senior DevOps Engineer',
+    bio: 'Building continuous integration systems and optimizing deployment speeds for our global cloud services.',
+    image: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=800&auto=format&fit=crop&q=80',
+    socials: { linkedin: '#', twitter: '#', facebook: '#', instagram: '#' }
+  }
+];
+
 const SEED_ACTIVITIES = [
   {
     id: 1,
@@ -476,15 +600,17 @@ const SEED_ADMIN_USERS = [
 ];
 
 // Memory fallbacks
-let fallbackStores = {
-  blogs: [],
-  events: [],
-  gallery: [],
-  dealers: [],
-  contacts: [],
-  settings: [],
+const fallbackStores = {
+  blogs: [...SEED_BLOGS],
+  events: [...SEED_EVENTS],
+  gallery: [...SEED_GALLERY],
+  dealers: [...SEED_DEALERS],
+  contacts: [...SEED_CONTACTS],
+  settings: [...SEED_SETTINGS],
+  site_contents: [SEED_SITE_CONTENTS],
   activities: [],
-  admin_users: []
+  admin_users: [...SEED_ADMIN_USERS],
+  team_members: [...SEED_TEAM_MEMBERS]
 };
 
 // LocalStorage helpers
@@ -519,6 +645,7 @@ Object.keys(STORES).forEach((key) => {
   else if (storeName === STORES.SETTINGS) defaultSeeds = SEED_SETTINGS;
   else if (storeName === STORES.ACTIVITIES) defaultSeeds = SEED_ACTIVITIES;
   else if (storeName === STORES.ADMIN_USERS) defaultSeeds = SEED_ADMIN_USERS;
+  else if (storeName === STORES.TEAM_MEMBERS) defaultSeeds = SEED_TEAM_MEMBERS;
 
   if (cached && cached.length > 0) {
     let merged = [...cached];
@@ -591,6 +718,10 @@ export function initCmsDb() {
       // Seed contacts
       const contactStore = transaction.objectStore(STORES.CONTACTS);
       fallbackStores.contacts.forEach((item) => contactStore.put(item));
+
+      // Seed team members
+      const teamStore = transaction.objectStore(STORES.TEAM_MEMBERS);
+      fallbackStores.team_members.forEach((item) => teamStore.put(item));
 
       // Seed settings
       const settingsStore = transaction.objectStore(STORES.SETTINGS);
@@ -837,12 +968,22 @@ export function saveSettings(settings) {
 
 export function getSiteContents() {
   return getStoreList(STORES.SETTINGS).then((list) => {
-    const config = list.find((x) => x.id === "site_contents");
-    if (config) {
-      return { ...SEED_SITE_CONTENTS, ...config };
-    }
-    return SEED_SITE_CONTENTS;
+    const item = list.find((x) => x.id === "site_contents");
+    return item || SEED_SITE_CONTENTS;
   });
+}
+
+// --- TEAM MEMBERS EXPORTS ---
+export function getAllTeamMembers() {
+  return getStoreList(STORES.TEAM_MEMBERS);
+}
+
+export function saveTeamMember(member) {
+  return saveStoreItem(STORES.TEAM_MEMBERS, member);
+}
+
+export function deleteTeamMember(id) {
+  return deleteStoreItem(STORES.TEAM_MEMBERS, id);
 }
 
 export function saveSiteContents(contents) {
@@ -959,6 +1100,7 @@ export function resetCmsDatabase() {
     fallbackStores.settings = [...SEED_SETTINGS];
     fallbackStores.activities = [...SEED_ACTIVITIES];
     fallbackStores.admin_users = [...SEED_ADMIN_USERS];
+    fallbackStores.team_members = [...SEED_TEAM_MEMBERS];
     
     setLocalStorageData(STORES.BLOGS, fallbackStores.blogs);
     setLocalStorageData(STORES.EVENTS, fallbackStores.events);
@@ -968,6 +1110,7 @@ export function resetCmsDatabase() {
     setLocalStorageData(STORES.SETTINGS, fallbackStores.settings);
     setLocalStorageData(STORES.ACTIVITIES, fallbackStores.activities);
     setLocalStorageData(STORES.ADMIN_USERS, fallbackStores.admin_users);
+    setLocalStorageData(STORES.TEAM_MEMBERS, fallbackStores.team_members);
 
     initCmsDb()
       .then((db) => {
